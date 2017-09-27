@@ -1,0 +1,17 @@
+algopy==0.5.5
+configparser==3.5.0
+cycler==0.10.0
+matplotlib==2.0.2
+numdifftools==0.9.20
+numpy==1.13.1
+pandas==0.20.3
+patsy==0.4.1
+pyflux==0.4.15
+PyMySQL==0.7.11
+pyparsing==2.2.0
+python-dateutil==2.6.1
+pytz==2017.2
+scikit-learn==0.18.2
+scipy==0.19.1
+six==1.10.0
+SQLAlchemy==1.1.13
