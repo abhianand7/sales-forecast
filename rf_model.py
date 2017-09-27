@@ -273,8 +273,8 @@ def model(filename, h, criterion='mse', trees=10):
                  time.strftime("%H:%M:%S").__str__().replace(':', '')
 
     feature_importances_df = pd.DataFrame([[sale * 100 / count, budget * 100 / count, promo * 100 / count,
-                                            retail * 100 / count, holiday * 100 / count]],
-                                          columns=['sale', 'budget', 'promo', 'retail', 'holiday'])
+                                            retail * 100 / count, holiday * 100 / count, avg_acc_score * 100]],
+                                          columns=['sale', 'budget', 'promo', 'retail', 'holiday', 'Accuracy'])
     feature_importances_df.to_sql(name='FeatureImportance',
                                   con=db_conx,
                                   if_exists='append',
