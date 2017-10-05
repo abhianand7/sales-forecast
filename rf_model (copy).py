@@ -344,4 +344,3 @@ def autolabel(rects, ax):
         ax.text(rect.get_x() + rect.get_width()//2., 1.005*height,
                 '%d' % int(height),
                 ha='center', va='bottom')
-

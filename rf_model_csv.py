@@ -9,7 +9,6 @@ import matplotlib as mlp
 # to use it's own backend
 mlp.use('Agg')
 from matplotlib import pyplot as plt
-import random
 import locale
 import time
 
