@@ -109,7 +109,7 @@ def temperature_mapping(data_frame, temperature_data_frame, region):
     # data_frame['temp'] = np.array([0 for i in range(data_frame.__len__())])
     data_frame['temp_min'] = np.array([np.nan for i in range(data_frame.__len__())])
     data_frame['temp_max'] = np.array([np.nan for i in range(data_frame.__len__())])
-    data_frame['humidity'] = np.array([np.nan for i in range(data_frame.__len__())])
+    # data_frame['humidity'] = np.array([np.nan for i in range(data_frame.__len__())])
     filtered_temp_data_frame = temperature_data_frame[temperature_data_frame['region'] == region]
 
     for index, date in enumerate(data_frame.date.values):
@@ -121,10 +121,10 @@ def temperature_mapping(data_frame, temperature_data_frame, region):
             data_frame.loc[index, 'temp_max'] = filtered_temp_data_frame.loc[filtered_temp_data_frame['date'] == date]['temp_max']
         except KeyError:
             pass
-        try:
-            data_frame.loc[index, 'humidity'] = filtered_temp_data_frame.loc[filtered_temp_data_frame['date'] == date]['humidity']
-        except KeyError:
-            pass
+        # try:
+        #     data_frame.loc[index, 'humidity'] = filtered_temp_data_frame.loc[filtered_temp_data_frame['date'] == date]['humidity']
+        # except KeyError:
+        #     pass
 
     return data_frame
 
