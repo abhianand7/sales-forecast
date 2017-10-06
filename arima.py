@@ -120,7 +120,7 @@ def arima(filename, parameters, weeks):
         # arima = pf.ARIMA(data_frame, integ=0, ar=5, ma=0, family=pf.Normal(), target='sales')
         x = arima.fit()
         x.summary()
-        print (x.loglik, x.max_lag)
+        # print (x.loglik, x.max_lag)
 
         # arima.plot_fit()
 

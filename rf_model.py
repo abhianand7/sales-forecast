@@ -14,6 +14,7 @@ import locale
 import time
 
 # for DB connection
+import pymysql
 from sqlalchemy import create_engine
 db_conx = create_engine('mysql+pymysql://root:abhinav@7@localhost:3306/prediction_output', echo=False)
 
