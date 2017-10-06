@@ -34,7 +34,7 @@ def build_data_frame(data_frame, h):
     # drop the data which will be used in prediction
     data_frame = data_frame.drop(data_frame.index[length_df-h:])
 
-    # convert the string in the format of US locale format that is 1,029 strings into proper integers
+    # convert the string in the format of US locale format that is 1,029 strings into 1029
     sales_data = [x if type(x) != str else locale.atoi(x) for x in data_frame.sales]
     budget_data = [x if type(x) != str else locale.atoi(x) for x in data_frame.budget]
     data_frame.budget = pd.DataFrame(budget_data).values
@@ -103,9 +103,37 @@ def holiday_mapping(holiday_list_file):
     return holiday_data_frame
 
 
+def temperature_mapping(data_frame, temperature_data_frame, region):
+
+    # Temperature data
+    # data_frame['temp'] = np.array([0 for i in range(data_frame.__len__())])
+    data_frame['temp_min'] = np.array([np.nan for i in range(data_frame.__len__())])
+    data_frame['temp_max'] = np.array([np.nan for i in range(data_frame.__len__())])
+    data_frame['humidity'] = np.array([np.nan for i in range(data_frame.__len__())])
+    filtered_temp_data_frame = temperature_data_frame[temperature_data_frame['region'] == region]
+
+    for index, date in enumerate(data_frame.date.values):
+        try:
+            data_frame.loc[index, 'temp_min'] = filtered_temp_data_frame.loc[filtered_temp_data_frame['date'] == date]['temp_min']
+        except KeyError:
+            pass
+        try:
+            data_frame.loc[index, 'temp_max'] = filtered_temp_data_frame.loc[filtered_temp_data_frame['date'] == date]['temp_max']
+        except KeyError:
+            pass
+        try:
+            data_frame.loc[index, 'humidity'] = filtered_temp_data_frame.loc[filtered_temp_data_frame['date'] == date]['humidity']
+        except KeyError:
+            pass
+
+    return data_frame
+
+
 def separate_multiple_products(data_input_filename, h):
     data_frame_dict = {}
     data_frame = pd.read_csv(data_input_filename)
+
+    # holiday data
     holiday_data_frame = holiday_mapping(holiday_list_file)
 
     # make all the labels of the columns in lower case
@@ -142,6 +170,10 @@ def separate_multiple_products(data_input_filename, h):
         else:
             data_frame_dict[key] = {m: list(data_frame2.loc[count].values)}
         count += 1
+
+    # read the temperature database from sql and load it as a dataframe
+    temperature_data_frame = pd.read_sql(sql="Temperature", con=db_conx)
+
     for key in data_frame_dict.keys():
         sales_data = data_frame_dict[key]
         # now separate the each product into separate data frame
@@ -157,6 +189,8 @@ def separate_multiple_products(data_input_filename, h):
         new_data_frame['holiday'] = np.array([0 for i in range(new_data_frame.__len__())])
 
         new_data_frame['date'] = np.array(dates)
+
+        new_data_frame = temperature_mapping(new_data_frame, temperature_data_frame, key.split(',')[1])
 
         for index, date in enumerate(holiday_data_frame.date):
 
