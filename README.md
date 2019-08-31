@@ -1,0 +1,2 @@
+# sales-forecast
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e9b565571e19426e9e4f21507fb8148c)](https://app.codacy.com/app/abhianand7/sales-forecast?utm_source=github.com&utm_medium=referral&utm_content=abhianand7/sales-forecast&utm_campaign=Badge_Grade_Dashboard)
